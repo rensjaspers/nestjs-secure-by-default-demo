@@ -21,6 +21,9 @@ interface AuthenticatedRequest {
   user?: AuthenticatedUser;
 }
 
+// NOTE: This is a fake/simulation implementation for demonstration purposes.
+// In a real application, replace this with your actual authorization logic
+// (e.g., RBAC, ABAC, permission checks against your auth provider, etc.).
 @Injectable()
 export class PermissionsGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
@@ -46,7 +49,6 @@ export class PermissionsGuard implements CanActivate {
       );
     }
 
-    // Check permissions
     const request = ctx.switchToHttp().getRequest<AuthenticatedRequest>();
     const user = request.user;
 

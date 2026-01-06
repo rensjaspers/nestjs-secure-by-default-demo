@@ -20,6 +20,9 @@ interface AuthenticatedRequest {
   user?: AuthenticatedUser;
 }
 
+// NOTE: This is a fake/simulation implementation for demonstration purposes.
+// In a real application, replace this with your actual authentication logic
+// (e.g., JWT validation, OAuth, session validation, etc.).
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
@@ -40,8 +43,6 @@ export class AuthenticationGuard implements CanActivate {
     const request = ctx.switchToHttp().getRequest<AuthenticatedRequest>();
     const authHeader = request.headers.authorization;
 
-    // Simpele auth implementatie: verwacht "Bearer <token>"
-    // Voor testen: token "valid-token" is geldig
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedException(
         'Missing or invalid authorization header',
@@ -53,7 +54,6 @@ export class AuthenticationGuard implements CanActivate {
       throw new UnauthorizedException('Invalid token');
     }
 
-    // Simuleer een user object voor de permissions guard
     request.user = {
       id: 'user-123',
       email: 'test@example.com',
